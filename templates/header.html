@@ -1,0 +1,95 @@
+﻿
+<div class="container" style="background-color:azure; width:100%">
+    <div class="row" style="margin: 0 100px; background-color:#cb2929" >
+        <h1 style="color:#ffd800">M A D  - Fusion style </h1>
+        <h2><i> - Fashion is nothing without people</i></h2>
+    </div>
+    
+    <div style="margin-top:100px;">
+        <div class="row" style="position:relative; width:40%; height:auto; float:left; margin-left:50px;">
+            <p>
+                Price Range:
+            <p id="amount"></p>
+            </p>
+
+            <div id="slider-range"></div><br>
+            <input type="hidden" id="amount1" value="100" />
+            <input type="hidden" id="amount2" value="1000" />
+            <input type="button" value="submit" ng-click="getProduct()">
+
+        </div>
+        <div class="row" style="position:relative; width:25%; height:auto; float:right; top:50px; left:-80px;">
+            <input type="text" placeholder="search by name" style="width:70%;" ng-model="searchText" />
+        </div>
+    </div>
+        <div style="background-color:red">
+            <div class="row" style="position:relative; width:70%; height:auto; float:left;">
+
+                <ul>
+                    <li ng-repeat="todo in filteredTodos | filter:searchText" style=" list-style-type:none;">
+                        <div sho="{{todo.id}}" class="col-md-5" style="background-color:#ffd800; margin:10px 0px 10px 20px; text-align:center; max-height:600px;">
+                            <img sho="{{todo.id}}" ng-src="{{todo.image}}" width="200" height="270" style="margin-top:10px;" />
+                            <h3 sho="{{todo.id}}" class="logo">{{todo.name}}</h3>
+                            <h4 sho="{{todo.id}}">Rs. {{todo.price}}</h4>
+                            <div style="overflow-y:no-content; height:100px;">
+                                <h6>{{todo.description}}</h6>
+                            </div>
+                            <div id="sho{{todo.id}}">
+                                <h6>Rating:{{todo.rating}} || Color:{{todo.color}} || Quantity:{{todo.quantity}}</h6>
+                            </div>
+                        </div>
+
+                    </li>
+
+                </ul>
+            </div>
+            <div class="row" style="position:relative; width:30%; height:auto; float:right">
+                <div class="tile tile-login">
+                    <h3 class="logo">Sort By: </h3>
+                    <div class="row" style="background-color:#ffffff; text-align:left">
+                        <ul style="list-style-type:none;">
+                            <li> <input type="checkbox" ng-click="filter('category')" />Category </li>
+                            <li> <input type="checkbox" ng-click="filter('price')" />Price </li>
+                            <li> <input type="checkbox" ng-click="filter('rating')" />Rating </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="tile tile-login" style="margin-top:40%;">
+                    <h3 class="logo">Statistical Analysis</h3>
+                    
+                   
+                    <div class="row" style="background-color:#ffffff; text-align:left">
+                        Total product counts:{{total}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="position:relative; height:auto; width:50%; margin:100px;">
+            <pagination ng-change="getpageCount(currentpage)"
+                        ng-model=" currentpage"
+                        total-items="todos.length"
+                        max-size="maxSize"
+                        boundary-links="true">
+            </pagination>
+        </div>
+    </div>
+
+
+<script type="text/javascript">
+
+    $(function () {
+        $("#slider-range").slider({
+            range: true,
+            min: 0,
+            max: 5000,
+            values: [100, 1000],
+            slide: function (event, ui) {
+                $("#amount").html("INR " + ui.values[0] + " - INR " + ui.values[1]);
+                $("#amount1").val(ui.values[0]);
+                $("#amount2").val(ui.values[1]);
+            }
+        });
+        $("#amount").html("INR " + $("#slider-range").slider("values", 0) +
+         " - INR " + $("#slider-range").slider("values", 1));
+    });
+</script>
